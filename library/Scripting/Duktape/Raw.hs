@@ -40,7 +40,7 @@ type TimeoutCheck = IO Bool
 type TimeoutCheckWrapped = FunPtr (IO Bool)
 type CheckActionUData =  Ptr TimeoutCheckWrapped
 
-newtype InternalUData = InternalUData { getInternalUData :: Ptr () }
+newtype InternalUData = InternalUData { getInternalUData ∷ Ptr () }
 
 -- Static callback
 foreign export ccall "hsduk_exec_timeout_check" execTimeoutCheck ∷ DukExecTimeoutCheckFunction
@@ -176,7 +176,7 @@ foreign import capi safe "duktape.h duk_push_context_dump"
 
 -------------------------------------------------------------------------------------------------------
 
-nullUData :: InternalUData
+nullUData ∷ InternalUData
 nullUData = InternalUData nullPtr
 
 createHeap ∷ FunPtr DukAllocFunction → FunPtr DukReallocFunction → FunPtr DukFreeFunction → InternalUData → FunPtr DukFatalFunction → IO (Maybe DuktapeCtx)
