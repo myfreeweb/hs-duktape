@@ -1,19 +1,30 @@
-sudo: false
-language: c
+dist: xenial
 
-addons: {apt: {packages: [ghc-8.2.2], sources: [hvr-ghc]}}
+language: generic
 
 cache:
   directories:
-    - $HOME/.stack
+  - $HOME/.stack
+  - $TRAVIS_BUILD_DIR/.stack-work
+
+addons:
+  apt:
+    packages:
+      - libgmp-dev
+
+matrix:
+  include:
+  - env: STK=lts-13.6  YML=stack.yaml
+  - env: STK=lts-12.26 YML=stack.yaml
+  - env: STK=lts-11.22 YML=stack.yaml
 
 before_install:
-  - unset CC
-  - mkdir -p ~/.local/bin
-  - export PATH=~/.local/bin:$PATH
-  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-  - pip install PyYAML
-  - stack --no-terminal --skip-ghc-check setup
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://get.haskellstack.org/stable/linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+
+install:
+- stack --no-terminal --resolver "$STK" --stack-yaml "$YML" --install-ghc test --only-dependencies
 
 script:
-  - stack --no-terminal --skip-ghc-check test
+- stack --no-terminal --resolver "$STK" --stack-yaml "$YML" test --haddock --no-haddock-deps
