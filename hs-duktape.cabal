@@ -1,10 +1,10 @@
 name:            hs-duktape
-version:         0.1.5
+version:         1.0.0
 synopsis:        Haskell bindings for a very compact embedded ECMAScript (JavaScript) engine.
 category:        Web
 homepage:        https://github.com/myfreeweb/hs-duktape
 author:          Greg V
-copyright:       2015-2018 Greg V <greg@unrelenting.technology> / 2013-2018 Duktape authors (for Duktape)
+copyright:       2015-2019 Greg V <greg@unrelenting.technology> / 2013-2019 Duktape authors (for Duktape)
 maintainer:      greg@unrelenting.technology
 license:         MIT
 license-file:    LICENSE
@@ -16,7 +16,7 @@ extra-source-files:
     dukconfig/dist/duktape.h
     dukconfig/dist/duk_config.h
 tested-with:
-    GHC == 8.2.2
+    GHC == 8.6.3
 
 source-repository head
     type: git
